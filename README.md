@@ -1,3 +1,5 @@
+> While we are waiting for this proposal https://github.com/swiftlang/swift-evolution/blob/main/proposals/0283-tuples-are-equatable-comparable-hashable.md
+
 # EquatableBox
 
 A Swift package that provides a convenient way to make tuples equatable in Swift 6 using parameter packs.
