@@ -16,6 +16,13 @@ public struct EquatableBox<T>: Equatable {
     }
   }
   
+  public init<each V: Equatable>(_ tuple: (repeat each V)) where T == (repeat each V) {
+    self.value = tuple
+    self.compare = { other in
+      areEqual((repeat each tuple), (repeat each other.value))
+    }
+  }
+  
 }
 
 private func areEqual<each Element: Equatable>(_ lhs: (repeat each Element), _ rhs: (repeat each Element)) -> Bool {
