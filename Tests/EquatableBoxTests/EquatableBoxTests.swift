@@ -170,3 +170,60 @@ import Foundation
     #expect(point1.hasSameValues(as: point2))
     #expect(!point1.hasSameValues(as: point3))
 }
+
+@Test func testTupleInitializer() async throws {
+    // Basic tuple test
+    let tuple1 = (1, "hello")
+    let tuple2 = (1, "hello")
+    let tuple3 = (2, "hello")
+    let tuple4 = (1, "world")
+    
+    let box1 = EquatableBox(tuple1)
+    let box2 = EquatableBox(tuple2)
+    let box3 = EquatableBox(tuple3)
+    let box4 = EquatableBox(tuple4)
+    
+    #expect(box1 == box2)
+    #expect(box1 != box3)
+    #expect(box1 != box4)
+    
+    // Test with multiple elements in tuple
+    let complexTuple1 = (1, "test", true, 3.14)
+    let complexTuple2 = (1, "test", true, 3.14)
+    let complexTuple3 = (1, "test", false, 3.14)
+    
+    let complexBox1 = EquatableBox(complexTuple1)
+    let complexBox2 = EquatableBox(complexTuple2)
+    let complexBox3 = EquatableBox(complexTuple3)
+    
+    #expect(complexBox1 == complexBox2)
+    #expect(complexBox1 != complexBox3)
+    
+    // Test with custom types in tuple
+    struct Person: Equatable {
+        let name: String
+        let age: Int
+    }
+    
+    let person1 = Person(name: "田中", age: 30)
+    let person2 = Person(name: "田中", age: 30)
+    let person3 = Person(name: "佐藤", age: 25)
+    
+    let personTuple1 = (person1, 42)
+    let personTuple2 = (person2, 42)
+    let personTuple3 = (person3, 42)
+    
+    let personBox1 = EquatableBox(personTuple1)
+    let personBox2 = EquatableBox(personTuple2)
+    let personBox3 = EquatableBox(personTuple3)
+    
+    #expect(personBox1 == personBox2)
+    #expect(personBox1 != personBox3)
+    
+    // Compatibility test between both initialization methods
+    let directBox = EquatableBox(100, "直接初期化")
+    let tupleBox = EquatableBox((100, "直接初期化"))
+    
+    #expect(directBox.value.0 == tupleBox.value.0)
+    #expect(directBox.value.1 == tupleBox.value.1)
+}
